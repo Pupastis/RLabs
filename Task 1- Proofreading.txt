@@ -1,0 +1,8 @@
+High-Speed Analysis for a New Generation of Advanced Threats - Enabling Better Outcomes for Security and Businesses 
+
+TitaniumCore performs advanced file analysis at millisecond speeds using a powerful engine to analyze files, offering a wide range of use cases and satisfying a wide variety of user demands, from just a few to a few billion samples daily.
+
+The rules engine calculates threat levels based on rules provided by ReversingLabs and YARA rules supplied by the customer, offering unprecedented input scalability.
+Extracted files can automatically be routed to additional analysing tools (i.e decompilers, debuggers, sandboxes, tools that run the files in a VM,) or an analyst for further human evaluation, based on the threat level and type. This enables the most efficient use of security assets. 
+
+No other product (for example, sandboxes or scanners) exposes the breadth and depth of threat indicators extracted by TitaniumCore.

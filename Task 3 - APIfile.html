@@ -1,0 +1,94 @@
+<h1>Sample Download API</h1>
+<h2>Description</h2>
+<p>The Sample Download API allows users to download the original uploaded for analysis.</p>
+<p>The API Endpoint for it is <code>/api/v1/download_samples/</code></p>
+<p>The following methods can be used:</p>
+<table>
+ <tr>
+ <th>Method  </th>
+ <th>Description</th>
+ </tr>
+ <tr>
+ <td><code>GET</code></td>
+ <td>Returns a list of all files available for download as a JSON response.</td>
+ </tr>
+ <tr>
+ <td><code>POST</code></td>
+ <td>Receives a JSON body with the IDs of files that the user wishes to download and provides a corresponding download link.</td>
+ </tr>
+</table>
+<p>The <code>GET</code> method can be further refined by using the following query parameters:</p>
+<table>
+ <tr>
+ <th>Query Parameter</th>
+ <th>Description
+ </tr>
+ <tr>
+ <td><code>date</code></td>
+ <td>Returns items analyzed on a specific date</td>
+ </tr>
+ <tr>
+ <td><code>user_id</code></td>
+ <td>Returns items uploaded by that specific user.</td>
+ </tr>
+</table>
+<p><strong><em>NOTE</em>: The parameters are ignored when using the <code>POST</code> method.</strong></p>
+<h2>Examples</h2>
+<h3>Python request</h3>
+<pre><code><span>import</span> requests
+from requests.auth <span>import</span> HTTPBasicAuth
+url = <span>'https://example.com/api/v1/download_samples/'</span>
+username = <span>'z1000_user'</span>
+password = <span>'z1000_password_example_123'</span>
+params = {
+ <span>'date'</span>: <span>'2025-04-03'</span>,
+ <span>'user_id'</span>: <span>'user123'</span>
+}
+</code></pre>
+<h3>cURL request</h3>
+<pre><code>curl -X GET "https://example.com/api/v1/download_samples/?date=2025-04-03&amp;user_id=user123" \
+ -<span>u <span>"z1000_user:z1000_password_example_123"</span> \
+</span> -<span>H <span>"Content-Type: application/json"</span></span>
+</code></pre>
+<h3>Response</h3>
+<pre><code><span>response</span> = requests.get(url, <span>params=params,</span><span>auth=HTTPBasicAuth(username,</span> password))
+<span>if</span> response.<span>status_code</span> == <span>200</span>:
+ <span>data</span> = response.json()
+ print(<span>"Response Data:"</span>, data)
+<span>else</span>:
+ print(f<span>"Error: {response.status_code}, {response.text}"</span>)
+{
+ <span>"status"</span>: <span>"success"</span>,
+ <span>"message"</span>: <span>"Samples retrieved successfully"</span>,
+ <span>"data"</span>: [
+ {
+ <span>"sample_id"</span>: <span>"12345"</span>,
+ <span>"filename"</span>: <span>"malicious_file_1.exe"</span>,
+ <span>"file_size"</span>: <span>1024</span>,
+ <span>"threat_level"</span>: <span>"high"</span>,
+ <span>"threat_type"</span>: <span>"malware"</span>,
+ <span>"last_scanned"</span>: <span>"2025-04-03T10:15:00Z"</span>,
+ <span>"download_link"</span>: <span>"https://example.com/downloads/malicious_file_1.exe"</span>
+ },
+ {
+ <span>"sample_id"</span>: <span>"12346"</span>,
+ <span>"filename"</span>: <span>"suspicious_file_2.dll"</span>,
+ <span>"file_size"</span>: <span>512</span>,
+ <span>"threat_level"</span>: <span>"medium"</span>,
+ <span>"threat_type"</span>: <span>"potentially unwanted program"</span>,
+ <span>"last_scanned"</span>: <span>"2025-04-02T14:30:00Z"</span>,
+ <span>"download_link"</span>: <span>"https://example.com/downloads/suspicious_file_2.dll"</span>
+ },
+ {
+ <span>"sample_id"</span>: <span>"12347"</span>,
+ <span>"filename"</span>: <span>"safe_file_3.pdf"</span>,
+ <span>"file_size"</span>: <span>256</span>,
+ <span>"threat_level"</span>: <span>"low"</span>,
+ <span>"threat_type"</span>: <span>"none"</span>,
+ <span>"last_scanned"</span>: <span>"2025-04-01T08:45:00Z"</span>,
+ <span>"download_link"</span>: <span>"https://example.com/downloads/safe_file_3.pdf"</span>
+ }
+ ]
+}
+</code></pre>
+<p><strong><em>NOTE</em>: If running any of the files flagged with a &quot;high&quot; or &quot;medium&quot; threat level type, take extra percautions as they may damage your system.</strong></p>
